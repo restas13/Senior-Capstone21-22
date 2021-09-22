@@ -2,22 +2,14 @@
     "name": "Controls",
     "maps": [
         {
-            "name": "Movement",
+            "name": "Gameplay",
             "id": "8e134f00-24a1-4995-837e-d72a1bfcd5a3",
             "actions": [
                 {
-                    "name": "Vertical",
+                    "name": "Movement",
                     "type": "Value",
                     "id": "91bcd59c-1c8b-4211-9749-bb41b35a4171",
-                    "expectedControlType": "Axis",
-                    "processors": "",
-                    "interactions": ""
-                },
-                {
-                    "name": "Horizontal",
-                    "type": "Value",
-                    "id": "c6ebe4c1-33e6-45da-9094-4e56c201c505",
-                    "expectedControlType": "Axis",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 },
@@ -32,78 +24,67 @@
             ],
             "bindings": [
                 {
-                    "name": "1D Axis",
-                    "id": "7cce2021-e86b-46ce-8808-c5ef2dda5852",
-                    "path": "1DAxis",
+                    "name": "Vertical",
+                    "id": "6c53266b-fd15-4433-9e1a-f24ad8d58ffc",
+                    "path": "2DVector",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Vertical",
+                    "action": "Movement",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "negative",
+                    "name": "Up",
                     "id": "e380d30d-bda6-4ee3-b928-5885e1354f91",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "KBM",
-                    "action": "Vertical",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "positive",
-                    "id": "953fa37f-7d60-4a28-b30e-195e927c4e19",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": "KBM",
-                    "action": "Vertical",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "1D Axis",
-                    "id": "6c53266b-fd15-4433-9e1a-f24ad8d58ffc",
-                    "path": "1DAxis",
+                    "name": "Down",
+                    "id": "953fa37f-7d60-4a28-b30e-195e927c4e19",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "Horizontal",
-                    "isComposite": true,
-                    "isPartOfComposite": false
+                    "groups": "KBM",
+                    "action": "Movement",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "negative",
-                    "id": "43a47999-a0f7-4a1e-980e-e5d96e8a7fe8",
+                    "name": "Left",
+                    "id": "5bfa9c44-974a-41d2-9e8b-7cdc13fd93d8",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KBM",
-                    "action": "Horizontal",
+                    "groups": "",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "positive",
-                    "id": "02f9f614-c340-4519-804d-522491e9b7b6",
+                    "name": "Right",
+                    "id": "9bc1d342-0046-4ec1-bda5-de1135f18cb8",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KBM",
-                    "action": "Horizontal",
+                    "groups": "",
+                    "action": "Movement",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "7f6fa669-e769-4e7e-b066-d978dd860573",
+                    "id": "2771e3d9-846d-425d-acb1-8feae3dbed68",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "KBM",
+                    "groups": "",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
