@@ -84,7 +84,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "KBM",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false

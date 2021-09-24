@@ -32,11 +32,14 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        //if (playerCC.isGrounded)
-        //{
-            if (controls.Gameplay.Sprint.triggered)
+        if (playerCC.isGrounded)
+        {
+            if (controls.Gameplay.Sprint.ReadValue<float>() != 0)
                 movementVector *= sprintMult;
             playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime);
-        //}
+        } else 
+        {
+            playerCC.Move(new Vector3(0, -9.81f, 0) * Time.fixedDeltaTime);
+        }
     }
 }
