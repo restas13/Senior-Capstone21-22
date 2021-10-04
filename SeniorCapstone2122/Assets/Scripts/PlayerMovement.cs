@@ -11,10 +11,12 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 movementVector;
     public float movementSpeed;
     public float sprintMult;
+    public Camera mainCam;
     // Start is called before the first frame update
     void Start()
     {
         playerCC = GetComponent<CharacterController>();
+        mainCam = Camera.main;
     }
 
     void Awake()
