@@ -19,6 +19,14 @@
                     "id": "69f1b750-b600-4503-9cc3-83237d66a777",
                     "expectedControlType": "Button",
                     "processors": "",
+                    "interactions": "Hold"
+                },
+                {
+                    "name": "Pause",
+                    "type": "Button",
+                    "id": "42da5df0-a960-4e63-9f3c-755047cf0744",
+                    "expectedControlType": "Button",
+                    "processors": "",
                     "interactions": ""
                 }
             ],
@@ -86,6 +94,17 @@
                     "processors": "",
                     "groups": "KBM",
                     "action": "Sprint",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b0c967d-2fcd-4f68-a88a-23419080d31b",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "KBM",
+                    "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -346,9 +346,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d84aefca5e68045986f0d272c7d6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lookSensitivity: 30
   movementSpeed: 2
   sprintMult: 6
   mainCam: {fileID: 0}
+  test: {x: 0, y: 0, z: 0}
 --- !u!1 &1608092667
 GameObject:
   m_ObjectHideFlags: 0
