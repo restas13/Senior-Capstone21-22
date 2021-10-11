@@ -39,7 +39,8 @@ public class PlayerMovement : MonoBehaviour
     {
         test = mainCam.transform.rotation.eulerAngles;
         inputVector = controls.Gameplay.Movement.ReadValue<Vector2>();
-        movementVector.Set(inputVector.x, 0, inputVector.y);
+        //movementVector.Set(inputVector.x, 0, inputVector.y);
+        movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x);
         mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1);
         transform.Rotate(new Vector3(0, mouseInput.x, 0) * lookSensitivity * Time.deltaTime, Space.Self);
         //if(mainCam.transform.localRotation.x < 90 && mainCam.transform.localRotation.x > -90)
