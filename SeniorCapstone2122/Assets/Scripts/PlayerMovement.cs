@@ -67,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //move
         } else 
         {
-            playerCC.Move(new Vector3(0, -9.81f, 0) * Time.fixedDeltaTime); //fall if airborne
+            playerCC.Move((movementVector + new Vector3(0, -9.81f, 0)) * Time.fixedDeltaTime); //fall if airborne
         }
     }
 }
