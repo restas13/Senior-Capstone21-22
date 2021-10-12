@@ -1,71 +1,73 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.InputSystem; //need this for Input System stuff
 
 public class PlayerMovement : MonoBehaviour
 {
-    private Controls controls;
+    private Controls controls; //variable to contain Input Action
     private CharacterController playerCC;
+    private Camera mainCam;
     private Vector2 inputVector;
     private Vector3 movementVector;
+    private Vector3 camRotation;
     private Vector2 mouseInput;
     public float lookSensitivity;
     public float movementSpeed;
     public float sprintMult;
-    public Camera mainCam;
-    public Vector3 camRotation;
+
     // Start is called before the first frame update
     void Start()
     {
         playerCC = GetComponent<CharacterController>();
         mainCam = Camera.main;
-        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.lockState = CursorLockMode.Locked; //lock cursor on start
     }
 
     void Awake()
     {
-        controls = new Controls();
-        controls.Enable();
-    }
-
-    void OnEnable()
-    {
-        
+        controls = new Controls(); //set the controls variable to our Input Action
+        controls.Enable(); //enable the Action Maps
     }
 
     // Update is called once per frame
     void Update()
     {
-        inputVector = controls.Gameplay.Movement.ReadValue<Vector2>();
-        movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x);
-        mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1);
-        transform.Rotate(new Vector3(0, mouseInput.x, 0) * lookSensitivity * Time.deltaTime, Space.Self);
+        inputVector = controls.Gameplay.Movement.ReadValue<Vector2>(); //read value of Vector2 for movement input from Input Action
+        movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
+        mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1); //read current mouse position change
+        transform.Rotate(new Vector3(0, mouseInput.x, 0) * lookSensitivity, Space.Self); //rotate player horizontally with mouse
         if(controls.Gameplay.Pause.triggered)
         {
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.None; //unlock cursor if pause button is pressed
         }
-        camRotation = new Vector3(camRotation.x, mainCam.transform.rotation.eulerAngles.y, mainCam.transform.rotation.eulerAngles.z);
-        //mainCam.transform.Rotate(new Vector3(mouseInput.y, 0, 0) * lookSensitivity * Time.deltaTime, Space.Self);
-        camRotation += (new Vector3(mouseInput.y, 0, 0) * lookSensitivity * Time.deltaTime);
-        if (camRotation.x < 90 && camRotation.x > -90)
-            mainCam.transform.rotation = Quaternion.Euler(camRotation);
-        else if(camRotation.x >= 90)
-            camRotation.Set(89f, 0, 0);
-        else if(camRotation.x <= -90)
-            camRotation.Set(-89f, 0, 0);
+        //there is DEFINITELY a better way to do everything below
+        camRotation = new Vector3(camRotation.x, mainCam.transform.rotation.eulerAngles.y, mainCam.transform.rotation.eulerAngles.z); //keep current rotation of camera in y and z axes
+        camRotation += (new Vector3(mouseInput.y, 0, 0) * lookSensitivity); //use mouse input to rotate camera
+        if (camRotation.x < 90 && camRotation.x > -90) //keep player from looking too far up or down
+            mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+        else if(camRotation.x >= 90) //fix if somehow rotated too far
+        {
+            camRotation.Set(89f, 0, 0); //fix rotation
+            mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+        }
+        else if(camRotation.x <= -90) //fix if somehow rotated too far
+        {
+            camRotation.Set(-89f, 0, 0); //fix rotation
+            mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+        }
     }
 
     void FixedUpdate()
     {
-        if (playerCC.isGrounded)
+        if (playerCC.isGrounded) //get if grounded so we can apply gravity if airborne
         {
-            if (controls.Gameplay.Sprint.ReadValue<float>() != 0)
-                movementVector *= sprintMult;
-            playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime);
+            if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
+                movementVector *= sprintMult; //apply sprinting multiplier
+            playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //move
         } else 
         {
-            playerCC.Move(new Vector3(0, -9.81f, 0) * Time.fixedDeltaTime);
+            playerCC.Move(new Vector3(0, -9.81f, 0) * Time.fixedDeltaTime); //fall if airborne
         }
     }
 }
