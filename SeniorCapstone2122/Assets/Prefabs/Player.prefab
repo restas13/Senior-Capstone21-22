@@ -229,9 +229,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lookSensitivity: 0.125
-  movementSpeed: 2
-  sprintMult: 6
-  jumpHeight: 1.5
+  movementSpeed: 6
+  sprintMult: 2
+  jumpHeight: 1.3
 --- !u!143 &3525275649035368940
 CharacterController:
   m_ObjectHideFlags: 0

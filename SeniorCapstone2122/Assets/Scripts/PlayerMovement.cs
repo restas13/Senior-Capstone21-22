@@ -69,7 +69,6 @@ public class PlayerMovement : MonoBehaviour
         {
             if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
                 movementVector *= sprintMult; //apply sprinting multiplier
-            playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //do the forward/leftright movement
             if (jump)
             {
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3f * Physics.gravity.y); //add jump height to velocity
@@ -81,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerVelocity.y < 0 && playerCC.isGrounded) //dont give y velocity if grounded and not jumping
             playerVelocity.y = 0f;
-        playerCC.Move(playerVelocity * Time.fixedDeltaTime); //move
+        movementVector *= movementSpeed;
+        playerCC.Move((movementVector * Time.fixedDeltaTime) + (playerVelocity * Time.fixedDeltaTime)); //move
     }
 }
