@@ -12,26 +12,41 @@ public class Enemy : MonoBehaviour
     public float speed = 5f;
     public float enemyFieldOfView = 40f;
     public float detectionRadius = 3f;
-    [Header("")]
+    public float listeningRadius = 30f;
     public float hearingThreshold = 5f;
+    [Header("")]
+    public bool hasWaypoints;
     public bool seePlayer;
     public bool detectedPlayer;
     public bool withinReach;
+    [Header("")]
+    public GameObject[] waypoints;
     public Vector3 targetDir;
-    float angleFOV;
-    public float distanceToPlayer;
     Vector3 midBodyPosition;
-    LayerMask playerMask;
+    Vector3 closestWaypoint;
+    [Header("")]
+    public float angleFOV;
+    public float distanceToPlayer;
+    [Header("")]
+    public LayerMask playerMask;
 
     void Start()
     {
         player = GameObject.FindWithTag("Player");
         playerMask = LayerMask.GetMask("Player");
         enemyNavMeshAgent = GetComponent<NavMeshAgent>();
+        waypoints = GameObject.FindGameObjectsWithTag("EnemyWaypoint");
     }
 
     void FixedUpdate()
     {
+        
+        //Checking if there is Waypoints
+        if(waypoints != null)
+        {
+            hasWaypoints = true;
+        }
+
         midBodyPosition = transform.position + new Vector3(0f, 1.5f, 0f); //Middle Position of Enemy model
         distanceToPlayer = Vector3.Distance(player.transform.position, midBodyPosition); //Distance to player
 
@@ -47,7 +62,9 @@ public class Enemy : MonoBehaviour
         
     }
 
-    void Update(){
+    void Update()
+    {
+
         if(seePlayer == true){
             detectedPlayer = true; //If enemy can see player, player is detected
             Debug.Log("1");
@@ -57,6 +74,13 @@ public class Enemy : MonoBehaviour
         } else {
             Debug.Log("3");
             detectedPlayer = false; //Enemy has met no requirements to see player
+        }
+    }
+
+    public void Listening()
+    {
+        if(distanceToPlayer <= listeningRadius){
+
         }
     }
 
@@ -89,7 +113,19 @@ public class Enemy : MonoBehaviour
     
     public void Wander()
     {
+        float closestDistance = 999999999f;
+        foreach(GameObject waypoint in waypoints)
+        {
+            if(Vector3.Distance(transform.position, waypoint.transform.position) < closestDistance)
+            {
+                closestWaypoint = waypoint.transform.position;
+                closestDistance = Vector3.Distance(transform.position, waypoint.transform.position);
+            }
+        }
 
+        if(closestWaypoint != null){
+            enemyNavMeshAgent.SetDestination(closestWaypoint);
+        }
     }
 
     public void Chase() 
@@ -114,6 +150,10 @@ public class Enemy : MonoBehaviour
         //detection sphere
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.5f, 0f), detectionRadius);
+
+        //listening sphere
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position + new Vector3(0f, 1.5f, 0f), listeningRadius);
 
         //player tracker
         Gizmos.color = Color.yellow;

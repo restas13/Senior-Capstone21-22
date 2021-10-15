@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyIdleBehaviour : StateMachineBehaviour
+public class enemyWanderBehaviour : StateMachineBehaviour
 {
     Enemy enemyScript;
 
@@ -15,12 +15,11 @@ public class enemyIdleBehaviour : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        enemyScript.Wander();
         enemyScript.HitDetectorSphere();
+        
         if(enemyScript.detectedPlayer == true){
             animator.SetBool("chase", true);
-        }
-        if(enemyScript.hasWaypoints == true){
-            animator.SetBool("hasWanderPoints", true);
         }
     }
 
