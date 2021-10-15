@@ -10,14 +10,14 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCam;
     private Vector2 inputVector;
     private Vector3 movementVector;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private Vector3 camRotation;
     private Vector2 mouseInput;
     private bool jump;
     public float lookSensitivity;
     public float movementSpeed;
     public float sprintMult;
-    public float jumpHeight;
+    public float jumpHeight = 1.5f;
 
     // Start is called before the first frame update
     void Start()
@@ -69,6 +69,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
                 movementVector *= sprintMult; //apply sprinting multiplier
+            playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //do the forward/leftright movement
             if (jump)
             {
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3f * Physics.gravity.y); //add jump height to velocity
@@ -80,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerVelocity.y < 0 && playerCC.isGrounded) //dont give y velocity if grounded and not jumping
             playerVelocity.y = 0f;
-        movementVector *= movementSpeed;
-        playerCC.Move((movementVector * Time.fixedDeltaTime) + (playerVelocity * Time.fixedDeltaTime)); //move
+        playerCC.Move(playerVelocity * Time.fixedDeltaTime); //move
     }
 }
