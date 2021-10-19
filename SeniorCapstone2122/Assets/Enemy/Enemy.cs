@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
 {
     private GameObject player;
     NavMeshAgent enemyNavMeshAgent;
+    public Animator animator;
 
     [Header("Enemy Stats")]
     public float speed = 5f;
@@ -37,6 +38,7 @@ public class Enemy : MonoBehaviour
         playerMask = LayerMask.GetMask("Player");
         enemyNavMeshAgent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("EnemyWaypoint");
+        animator = GetComponent<Animator>();
     }
 
     void FixedUpdate()
@@ -105,9 +107,11 @@ public class Enemy : MonoBehaviour
         if(distanceToPlayer <= detectionRadius)
         {
             withinReach = true;
+            animator.SetBool("attack", true);
         } else
         {
             withinReach = false;
+            animator.SetBool("attack", false);
         }
         
     }
