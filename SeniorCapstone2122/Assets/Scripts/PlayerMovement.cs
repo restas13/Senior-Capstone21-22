@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 playerVelocity;
     private Vector3 camRotation;
     private Vector2 mouseInput;
-    private bool jump;
+    public bool jump;
     public float lookSensitivity;
     public float movementSpeed;
     public float sprintMult;

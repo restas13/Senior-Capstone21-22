@@ -13,6 +13,7 @@ public class Enemy : MonoBehaviour
     public float enemyFieldOfView = 40f;
     public float detectionRadius = 3f;
     public float listeningRadius = 30f;
+    public float listeningMultiplier = 1f;
     public float hearingThreshold = 5f;
     [Header("")]
     public bool hasWaypoints;
@@ -79,7 +80,7 @@ public class Enemy : MonoBehaviour
 
     public void Listening()
     {
-        if(distanceToPlayer <= listeningRadius){
+        if(distanceToPlayer <= (listeningRadius * listeningMultiplier)){
 
         }
     }
