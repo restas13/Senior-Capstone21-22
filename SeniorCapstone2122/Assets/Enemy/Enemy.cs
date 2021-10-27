@@ -43,12 +43,10 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-        
-        //Checking if there is Waypoints
-        if(waypoints != null)
-        {
-            hasWaypoints = true;
+        if(animator.GetCurrentAnimatorStateInfo(0).IsName("Sword And Shield Attack")){
+            //Attack();
         }
+        
 
         midBodyPosition = transform.position + new Vector3(0f, 1.5f, 0f); //Middle Position of Enemy model
         distanceToPlayer = Vector3.Distance(player.transform.position, midBodyPosition); //Distance to player
@@ -63,6 +61,15 @@ public class Enemy : MonoBehaviour
             seePlayer = false;
         }
         
+        //Checking if there is Waypoints
+        if(waypoints != null)
+        {   
+            if(animator.GetBool("attack") == true){
+                return;
+            }
+            hasWaypoints = true;
+        }
+
     }
 
     void Update()
@@ -107,11 +114,10 @@ public class Enemy : MonoBehaviour
         if(distanceToPlayer <= detectionRadius)
         {
             withinReach = true;
-            animator.SetBool("attack", true);
+            animator.SetTrigger("attack");
         } else
         {
             withinReach = false;
-            animator.SetBool("attack", false);
         }
         
     }
@@ -138,6 +144,9 @@ public class Enemy : MonoBehaviour
         enemyNavMeshAgent.SetDestination(player.transform.position);
     }
 
+    public void Attack(){
+        enemyNavMeshAgent.SetDestination(transform.position);
+    }
     void OnDrawGizmos()
     {
         float rayRange = 10.0f;
