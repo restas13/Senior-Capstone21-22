@@ -38,7 +38,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         inputVector = controls.Gameplay.Movement.ReadValue<Vector2>(); //read value of Vector2 for movement input from Input Action
-        movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
+        if (grounded)
+            movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
         mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1); //read current mouse position change
         if (playerCC.isGrounded == true && !jump && controls.Gameplay.Jump.triggered) //save jump input for next fixed update
             jump = true;
