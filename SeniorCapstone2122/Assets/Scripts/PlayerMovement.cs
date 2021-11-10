@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController playerCC;
     private Camera mainCam;
     private Vector2 inputVector;
-    private Vector3 movementVector;
+    public Vector3 movementVector;
     public Vector3 playerVelocity;
     private Vector3 camRotation;
     private Vector2 mouseInput;
@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float movementSpeed;
     public float sprintMult;
     public float jumpHeight = 1.5f;
+    public bool grounded;
 
     // Start is called before the first frame update
     void Start()
@@ -65,12 +66,13 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        grounded = playerCC.isGrounded;
+        if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
+            movementVector *= sprintMult; //apply sprinting multiplier
+        //playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //do the forward/leftright movement
         if (playerCC.isGrounded) //get if grounded so we can apply gravity if airborne
         {
-            if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
-                movementVector *= sprintMult; //apply sprinting multiplier
-            playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //do the forward/leftright movement
-            if (jump)
+            if(jump)
             {
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -3f * Physics.gravity.y); //add jump height to velocity
                 jump = false;
@@ -81,6 +83,6 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerVelocity.y < 0 && playerCC.isGrounded) //dont give y velocity if grounded and not jumping
             playerVelocity.y = 0f;
-        playerCC.Move(playerVelocity * Time.fixedDeltaTime); //move
+        playerCC.Move(((movementVector * movementSpeed) + playerVelocity) * Time.fixedDeltaTime); //move
     }
 }

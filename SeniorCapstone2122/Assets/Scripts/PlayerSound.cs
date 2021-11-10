@@ -32,9 +32,9 @@ public class PlayerSound : MonoBehaviour
         velocity = movementScript.playerVelocity;
         if (velocity.x == 0 && velocity.z == 0 && !movementScript.jump)
             multiplier = 0.2f;
-        else if (velocity.x != 0 && velocity.z != 0 && !movementScript.jump && controls.Gameplay.Sprint.ReadValue<float>() == 0)
+        else if (velocity.x != 0 && velocity.z != 0 && movementScript.grounded && controls.Gameplay.Sprint.ReadValue<float>() == 0)
             multiplier = 0.8f;
-        else if (velocity.x != 0 && velocity.z != 0 && !movementScript.jump && controls.Gameplay.Sprint.ReadValue<float>() != 0)
+        else if (velocity.x != 0 && velocity.z != 0 && movementScript.grounded && controls.Gameplay.Sprint.ReadValue<float>() != 0)
             multiplier = 1f;
         else multiplier = 1.2f;
         foreach (GameObject enemy in enemies)
