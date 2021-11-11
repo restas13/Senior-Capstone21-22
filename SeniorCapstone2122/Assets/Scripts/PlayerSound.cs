@@ -29,7 +29,7 @@ public class PlayerSound : MonoBehaviour
 
     void LateUpdate()
     {
-        velocity = movementScript.playerVelocity;
+        velocity = movementScript.movementVector;
         if (velocity.x == 0 && velocity.z == 0 && !movementScript.jump)
             multiplier = 0.2f;
         else if (velocity.x != 0 && velocity.z != 0 && movementScript.grounded && controls.Gameplay.Sprint.ReadValue<float>() == 0)

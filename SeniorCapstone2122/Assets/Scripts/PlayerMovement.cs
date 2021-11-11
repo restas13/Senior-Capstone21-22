@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 playerVelocity;
     private Vector3 camRotation;
     private Vector2 mouseInput;
+    public GameObject groundChecker;
     public bool jump;
     public float lookSensitivity;
     public float movementSpeed;
@@ -38,10 +39,10 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         inputVector = controls.Gameplay.Movement.ReadValue<Vector2>(); //read value of Vector2 for movement input from Input Action
-        if (grounded)
+        if (grounded) //only allow player to control movement on ground
             movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
         mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1); //read current mouse position change
-        if (playerCC.isGrounded == true && !jump && controls.Gameplay.Jump.triggered) //save jump input for next fixed update
+        if (grounded == true && !jump && controls.Gameplay.Jump.triggered) //save jump input for next fixed update
             jump = true;
         transform.Rotate(new Vector3(0, mouseInput.x, 0) * lookSensitivity, Space.Self); //rotate player horizontally with mouse
         if(controls.Gameplay.Pause.triggered)
@@ -67,11 +68,10 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        grounded = playerCC.isGrounded;
+        grounded = Physics.Raycast(groundChecker.transform.position, Vector3.down, 0.1f); //do a short raycast down from bottom of play to get if grounded
         if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
             movementVector *= sprintMult; //apply sprinting multiplier
-        //playerCC.Move(movementVector * movementSpeed * Time.fixedDeltaTime); //do the forward/leftright movement
-        if (playerCC.isGrounded) //get if grounded so we can apply gravity if airborne
+        if (grounded) //get if grounded so we can apply gravity if airborne
         {
             if(jump)
             {
@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         {
             playerVelocity.y += Physics.gravity.y * Time.fixedDeltaTime; //subtract gravity
         }
-        if (playerVelocity.y < 0 && playerCC.isGrounded) //dont give y velocity if grounded and not jumping
+        if (playerVelocity.y < 0 && grounded) //dont give y velocity if grounded and not jumping
             playerVelocity.y = 0f;
         playerCC.Move(((movementVector * movementSpeed) + playerVelocity) * Time.fixedDeltaTime); //move
     }
