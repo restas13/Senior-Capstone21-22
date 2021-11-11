@@ -87,6 +87,8 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+#region Detection
     public void Listening()
     {
         if(distanceToPlayer <= (listeningRadius * listeningMultiplier)){
@@ -121,24 +123,33 @@ public class Enemy : MonoBehaviour
         }
         
     }
-    
+#endregion
+#region Enemy States
     public void Wander()
     {
         float closestDistance = 999999999f;
         foreach(GameObject waypoint in waypoints)
         {
-            if(Vector3.Distance(transform.position, waypoint.transform.position) < closestDistance)
+            if(Vector3.Distance(player.transform.position, waypoint.transform.position) < Vector3.Distance(closestWaypointToPlayer.transform.position, player.transform.position))
             {
                 closestWaypoint = waypoint.transform.position;
                 closestDistance = Vector3.Distance(transform.position, waypoint.transform.position);
             }
         }
 
-        if(closestWaypoint != null){
-            enemyNavMeshAgent.SetDestination(closestWaypoint);
+        if(closestWaypointToPlayer != null){
+            enemyNavMeshAgent.SetDestination(closestWaypointToPlayer);
         }
     }
+    public void LookforPlayer(){
+        GameObject closestWaypointToPlayer;
 
+        foreach(GameObject waypoint in waypoints){
+            if(Vector3.Distance(closestWaypointToPlayer.transform.position, ) > (waypoint.Vector3.Distance - targetDir)){
+                closestWaypointToPlayer = waypoint;
+            }
+        }
+    }
     public void Chase() 
     {
         enemyNavMeshAgent.SetDestination(player.transform.position);
@@ -147,6 +158,8 @@ public class Enemy : MonoBehaviour
     public void Attack(){
         enemyNavMeshAgent.SetDestination(transform.position);
     }
+#endregion
+#region Gizmos
     void OnDrawGizmos()
     {
         float rayRange = 10.0f;
@@ -174,3 +187,4 @@ public class Enemy : MonoBehaviour
         Gizmos.DrawRay(transform.position, targetDir);
     }
 }
+#endregion
