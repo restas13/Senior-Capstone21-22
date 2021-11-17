@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     private GameObject player;
+    private GameObject closestWaypointToPlayer;
     NavMeshAgent enemyNavMeshAgent;
     public Animator animator;
 
@@ -136,21 +137,21 @@ public class Enemy : MonoBehaviour
                 closestDistance = Vector3.Distance(transform.position, waypoint.transform.position);
             }
         }
-
+        /*
         if(closestWaypointToPlayer != null){
             enemyNavMeshAgent.SetDestination(closestWaypointToPlayer);
         }
+        */
     }
     public void LookforPlayer(){
-        GameObject closestWaypointToPlayer;
-
-        foreach(GameObject waypoint in waypoints)
-        {
-            if(Vector3.Distance(closestWaypointToPlayer.transform.position,) > (waypoint.Vector3.Distance - targetDir))
-            {
+        
+        /*
+        foreach(GameObject waypoint in waypoints){
+            if(Vector3.Distance(closestWaypointToPlayer.transform.position, player.transform.position) > (waypoint.Vector3.Distance - targetDir)){
                 closestWaypointToPlayer = waypoint;
             }
         }
+        */
     }
     public void Chase() 
     {
