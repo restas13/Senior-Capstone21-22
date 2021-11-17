@@ -144,8 +144,10 @@ public class Enemy : MonoBehaviour
     public void LookforPlayer(){
         GameObject closestWaypointToPlayer;
 
-        foreach(GameObject waypoint in waypoints){
-            if(Vector3.Distance(closestWaypointToPlayer.transform.position, ) > (waypoint.Vector3.Distance - targetDir)){
+        foreach(GameObject waypoint in waypoints)
+        {
+            if(Vector3.Distance(closestWaypointToPlayer.transform.position,) > (waypoint.Vector3.Distance - targetDir))
+            {
                 closestWaypointToPlayer = waypoint;
             }
         }
