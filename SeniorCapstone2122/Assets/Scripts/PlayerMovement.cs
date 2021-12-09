@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     public float lookSensitivity;
     public float movementSpeed;
     public float sprintMult;
+    public bool canSprint = true;
     public float jumpHeight = 1.5f;
     public bool grounded;
 
@@ -69,7 +70,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         grounded = Physics.Raycast(groundChecker.transform.position, Vector3.down, 0.1f); //do a short raycast down from bottom of play to get if grounded
-        if (controls.Gameplay.Sprint.ReadValue<float>() != 0) //get if sprint button is pressed
+        if (controls.Gameplay.Sprint.ReadValue<float>() != 0 && canSprint) //get if sprint button is pressed
             movementVector *= sprintMult; //apply sprinting multiplier
         if (grounded) //get if grounded so we can apply gravity if airborne
         {
