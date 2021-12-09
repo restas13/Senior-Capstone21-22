@@ -40,6 +40,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
+        
         //death stuff
     }
 
