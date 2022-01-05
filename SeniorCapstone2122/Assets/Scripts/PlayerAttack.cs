@@ -50,4 +50,9 @@ public class PlayerAttack : MonoBehaviour
         currentShots -= 1;
         finishChargeTime = Time.time + rechargeTime;
     }
+
+    public void Refill()
+    {
+        currentShots = maxShots;
+    }
 }

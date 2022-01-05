@@ -6,12 +6,14 @@ using UnityEngine.InputSystem;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 2;
-    private int health;
+    public int health;
     private float fastSpeed;
     private float slowSpeed;
     private float baseSpeed;
     private PlayerMovement movement;
     private float regenTime;
+    private Vector3 checkpointLocation;
+    private GameObject[] pickups;
     public float timeToRegen = 20f;
     // Start is called before the first frame update
     void Start()
@@ -21,13 +23,14 @@ public class PlayerHealth : MonoBehaviour
         baseSpeed = movement.movementSpeed;
         slowSpeed = movement.movementSpeed / 2;
         fastSpeed = movement.movementSpeed * 10;
+        pickups = GameObject.FindGameObjectsWithTag("Pickup");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.fKey.isPressed){
-            TakeDamage(1);
+        if (Keyboard.current.fKey.wasReleasedThisFrame){
+            
         }
     }
 
@@ -40,7 +43,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Die()
     {
-        
+        if(pickups.Length > 0)
+        {
+            foreach(GameObject pickup in pickups)
+            {
+                pickup.SetActive(true);
+            }
+        }
         //death stuff
     }
 
@@ -66,5 +75,18 @@ public class PlayerHealth : MonoBehaviour
         yield return new WaitForSeconds(7f);
         movement.movementSpeed = baseSpeed;
         movement.canSprint = true;
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        if(collider.tag == "Checkpoint")
+        {
+            checkpointLocation = collider.gameObject.transform.position;
+        }
+    }
+
+    public void Heal()
+    {
+        health = maxHealth;
     }
 }

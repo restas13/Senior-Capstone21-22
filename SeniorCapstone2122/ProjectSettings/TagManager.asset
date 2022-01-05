@@ -6,6 +6,8 @@ TagManager:
   tags:
   - EnemyWaypoint
   - Enemy
+  - Checkpoint
+  - Pickup
   layers:
   - Default
   - TransparentFX
