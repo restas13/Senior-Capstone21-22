@@ -16,6 +16,7 @@ public class enemyChaseBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         enemyScript.HitDetectorSphere();
+        
         if(enemyScript.detectedPlayer == false)
         {
             animator.SetBool("chase", false);

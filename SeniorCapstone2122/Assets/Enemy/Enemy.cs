@@ -22,33 +22,37 @@ public class Enemy : MonoBehaviour
     public bool seePlayer;
     public bool detectedPlayer;
     public bool withinReach;
+    bool lookingForWaypoint;
     [Header("")]
+    public GameObject waypointPrefab;
     public GameObject[] waypoints;
     public Vector3 targetDir;
     Vector3 midBodyPosition;
-    Vector3 closestWaypoint;
+    GameObject closestWaypoint;
     [Header("")]
     public float angleFOV;
     public float distanceToPlayer;
-    [Header("")]
-    public LayerMask playerMask;
 
-    void Start()
-    {
+
+    void Awake(){
         player = GameObject.FindWithTag("Player");
-        playerMask = LayerMask.GetMask("Player");
         enemyNavMeshAgent = GetComponent<NavMeshAgent>();
         waypoints = GameObject.FindGameObjectsWithTag("EnemyWaypoint");
         animator = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        //GameObject.Instantiate
+    }
+
     void FixedUpdate()
     {
+
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Sword And Shield Attack")){
             //Attack();
         }
         
-
         midBodyPosition = transform.position + new Vector3(0f, 1.5f, 0f); //Middle Position of Enemy model
         distanceToPlayer = Vector3.Distance(player.transform.position, midBodyPosition); //Distance to player
 
@@ -75,7 +79,6 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-
         if(seePlayer == true){
             detectedPlayer = true; //If enemy can see player, player is detected
             Debug.Log("1");
@@ -128,15 +131,26 @@ public class Enemy : MonoBehaviour
 #region Enemy States
     public void Wander()
     {
-        float closestDistance = 999999999f;
-        foreach(GameObject waypoint in waypoints)
-        {
-            if(Vector3.Distance(player.transform.position, waypoint.transform.position) < Vector3.Distance(closestWaypointToPlayer.transform.position, player.transform.position))
-            {
-                closestWaypoint = waypoint.transform.position;
-                closestDistance = Vector3.Distance(transform.position, waypoint.transform.position);
-            }
+
+        if(transform.position == closestWaypoint.transform.position){
+            lookingForWaypoint = true;
         }
+        if(lookingForWaypoint == true){
+            foreach(GameObject waypoint in waypoints)
+            {
+                if(closestWaypoint == null){
+                    closestWaypoint = waypoint;
+                }
+                else if(Vector3.Distance(transform.position, waypoint.transform.position) < Vector3.Distance(closestWaypoint.transform.position, transform.position))
+                {
+                    closestWaypoint = waypoint;
+                }
+            }
+            lookingForWaypoint = false;
+        } else {
+            //do nothing
+        }
+        
         /*
         if(closestWaypointToPlayer != null){
             enemyNavMeshAgent.SetDestination(closestWaypointToPlayer);

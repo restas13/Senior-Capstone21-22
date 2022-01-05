@@ -313,6 +313,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!95 &1882212501 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5270851532848110720, guid: 930ea258e3f8f024da6cb843b7f27a98, type: 3}
+  m_PrefabInstance: {fileID: 1996989112}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1996989112
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -321,8 +326,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 674449153, guid: 930ea258e3f8f024da6cb843b7f27a98, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 1882212501}
+    - target: {fileID: 674449153, guid: 930ea258e3f8f024da6cb843b7f27a98, type: 3}
       propertyPath: hearingThreshold
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 674449153, guid: 930ea258e3f8f024da6cb843b7f27a98, type: 3}
+      propertyPath: playerMask.m_Bits
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5270851532848110720, guid: 930ea258e3f8f024da6cb843b7f27a98, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -440,6 +453,10 @@ PrefabInstance:
     - target: {fileID: 3525275649035368935, guid: 531ead90c7381c643a3938e68b844404, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3525275649035368935, guid: 531ead90c7381c643a3938e68b844404, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3525275649035368939, guid: 531ead90c7381c643a3938e68b844404, type: 3}
       propertyPath: m_RootOrder
