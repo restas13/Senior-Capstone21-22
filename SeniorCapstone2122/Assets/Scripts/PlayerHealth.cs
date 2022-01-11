@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class PlayerHealth : MonoBehaviour
 {
     public int maxHealth = 2;
-    public int health;
+    private int health;
     private float fastSpeed;
     private float slowSpeed;
     private float baseSpeed;
@@ -24,19 +24,20 @@ public class PlayerHealth : MonoBehaviour
         slowSpeed = movement.movementSpeed / 2;
         fastSpeed = movement.movementSpeed * 10;
         pickups = GameObject.FindGameObjectsWithTag("Pickup");
+        TakeDamage(1);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Keyboard.current.fKey.wasReleasedThisFrame){
-            
+        if (Keyboard.current.fKey.wasPressedThisFrame){
+            TakeDamage(1);
         }
     }
 
-    void FixedUpdate() 
+    void LateUpdate() 
     {
-        if (health < maxHealth && regenTime >= Time.time){
+        if (health < maxHealth && regenTime < Time.time){
             health = maxHealth;
         }
     }

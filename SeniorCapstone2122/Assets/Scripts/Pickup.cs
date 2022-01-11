@@ -10,8 +10,8 @@ public class Pickup : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            if (isAmmo) other.gameObject.GetComponent<PlayerAttack>().Refill();
-            else other.gameObject.GetComponent<PlayerHealth>().Heal();
+            if (isAmmo) other.gameObject.SendMessage("Refill");
+            else other.gameObject.SendMessage("Heal");
             gameObject.SetActive(false);
         } else if (other.tag == "Enemy") gameObject.SetActive(false);
     }
