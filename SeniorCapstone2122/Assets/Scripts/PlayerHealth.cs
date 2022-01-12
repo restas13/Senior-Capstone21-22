@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,6 +14,7 @@ public class PlayerHealth : MonoBehaviour
     private Vector3 checkpointLocation;
     private GameObject[] pickups;
     public float timeToRegen = 20f;
+    GameObject deathUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,15 +24,8 @@ public class PlayerHealth : MonoBehaviour
         slowSpeed = movement.movementSpeed / 2;
         fastSpeed = movement.movementSpeed * 10;
         pickups = GameObject.FindGameObjectsWithTag("Pickup");
-        TakeDamage(1);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Keyboard.current.fKey.wasPressedThisFrame){
-            TakeDamage(1);
-        }
+        deathUI = GameObject.Find("DeathBackground");
+        deathUI.SetActive(false);
     }
 
     void LateUpdate() 
@@ -51,6 +44,10 @@ public class PlayerHealth : MonoBehaviour
                 pickup.SetActive(true);
             }
         }
+        Cursor.lockState = CursorLockMode.None;
+        deathUI.SetActive(true);
+        movement.isDead = true;
+        transform.position = checkpointLocation;
         //death stuff
     }
 
@@ -68,12 +65,13 @@ public class PlayerHealth : MonoBehaviour
         regenTime = Time.time + timeToRegen;
     }
 
-    private IEnumerator DamageSpeed(){
+    private IEnumerator DamageSpeed()
+    {
         movement.canSprint = false;
         movement.movementSpeed = fastSpeed;
         yield return new WaitForSeconds(0.1f);
         movement.movementSpeed = slowSpeed;
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
         movement.movementSpeed = baseSpeed;
         movement.canSprint = true;
     }
@@ -89,5 +87,13 @@ public class PlayerHealth : MonoBehaviour
     public void Heal()
     {
         health = maxHealth;
+    }
+
+    public void Respawn()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        health = maxHealth;
+        deathUI.SetActive(false);
+        movement.isDead = false;
     }
 }

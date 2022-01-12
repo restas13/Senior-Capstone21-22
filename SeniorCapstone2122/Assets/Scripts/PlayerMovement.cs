@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     public bool canSprint = true;
     public float jumpHeight = 1.5f;
     public bool grounded;
+    public bool isDead;
 
     // Start is called before the first frame update
     void Start()
@@ -53,17 +54,19 @@ public class PlayerMovement : MonoBehaviour
         //there is DEFINITELY a better way to do everything below
         camRotation.Set(camRotation.x, mainCam.transform.rotation.eulerAngles.y, mainCam.transform.rotation.eulerAngles.z); //keep current rotation of camera in y and z axes
         camRotation.x += mouseInput.y * lookSensitivity; //use mouse input to rotate camera
-        if (camRotation.x < 90 && camRotation.x > -90) //keep player from looking too far up or down
-            mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
-        else if(camRotation.x >= 90) //fix if somehow rotated too far
-        {
-            camRotation.Set(89f, 0, 0); //fix rotation
-            mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
-        }
-        else if(camRotation.x <= -90) //fix if somehow rotated too far
-        {
-            camRotation.Set(-89f, 0, 0); //fix rotation
-            mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+        if(!isDead){
+            if (camRotation.x < 90 && camRotation.x > -90) //keep player from looking too far up or down
+                mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+            else if(camRotation.x >= 90) //fix if somehow rotated too far
+            {
+                camRotation.Set(89f, 0, 0); //fix rotation
+                mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+            }
+            else if(camRotation.x <= -90) //fix if somehow rotated too far
+            {
+                camRotation.Set(-89f, 0, 0); //fix rotation
+                mainCam.transform.rotation = Quaternion.Euler(camRotation); //actually rotate
+            }
         }
     }
 
@@ -85,6 +88,7 @@ public class PlayerMovement : MonoBehaviour
         }
         if (playerVelocity.y < 0 && grounded) //dont give y velocity if grounded and not jumping
             playerVelocity.y = 0f;
-        playerCC.Move(((movementVector * movementSpeed) + playerVelocity) * Time.fixedDeltaTime); //move
+        if(!isDead)
+            playerCC.Move(((movementVector * movementSpeed) + playerVelocity) * Time.fixedDeltaTime); //move
     }
 }
