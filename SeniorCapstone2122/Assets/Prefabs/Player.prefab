@@ -233,7 +233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementVector: {x: 0, y: 0, z: 0}
-  playerVelocity: {x: 0, y: 0, z: 0}
   groundChecker: {fileID: 4465151679726341241}
   jump: 0
   lookSensitivity: 0.125
@@ -242,6 +241,7 @@ MonoBehaviour:
   canSprint: 1
   jumpHeight: 1.3
   grounded: 0
+  isDead: 0
 --- !u!143 &3525275649035368940
 CharacterController:
   m_ObjectHideFlags: 0
@@ -272,8 +272,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54db3637dacb7744597e52470522eac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  percentWalking: 0
-  enemies: []
 --- !u!114 &354906392776502241
 MonoBehaviour:
   m_ObjectHideFlags: 0

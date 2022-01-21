@@ -7,11 +7,11 @@ public class PlayerSound : MonoBehaviour
 {
     private Controls controls;
     private PlayerMovement movementScript;
-    public float percentWalking;
-    Vector3 velocity;
-    float multiplier;
-    public GameObject[] enemies;
-    bool sprint;
+    private float percentWalking;
+    private Vector3 velocity;
+    private float multiplier;
+    private GameObject[] enemies;
+    private bool sprint;
     // Start is called before the first frame update
     void Start()
     {

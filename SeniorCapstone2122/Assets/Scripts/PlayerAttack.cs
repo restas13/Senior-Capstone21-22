@@ -48,7 +48,6 @@ public class PlayerAttack : MonoBehaviour
         {
             //do stuff here
         }*/
-        Debug.Log("shot");
         currentShots -= 1;
         finishChargeTime = Time.time + rechargeTime;
     }
