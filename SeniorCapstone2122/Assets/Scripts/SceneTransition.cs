@@ -23,4 +23,10 @@ public class SceneTransition : MonoBehaviour
     {
         loadScene.allowSceneActivation = true;
     }
+
+    public void Menu()
+    {
+        loadScene = null;
+        SceneManager.LoadScene(0);
+    }
 }
