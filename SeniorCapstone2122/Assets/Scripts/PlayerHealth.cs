@@ -18,7 +18,7 @@ public class PlayerHealth : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        health = maxHealth;
+        health = maxHealth; //set current health to whatever max health when starting
         movement = GetComponent<PlayerMovement>();
         baseSpeed = movement.movementSpeed;
         slowSpeed = movement.movementSpeed / 2;
@@ -30,7 +30,8 @@ public class PlayerHealth : MonoBehaviour
 
     void LateUpdate() 
     {
-        if (health < maxHealth && regenTime < Time.time){
+        if (health < maxHealth && regenTime < Time.time)
+        {
             health = maxHealth;
         }
     }
