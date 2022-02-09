@@ -21,11 +21,11 @@ public class Enemy : MonoBehaviour
     public bool hasWaypoints;
     public bool seePlayer;
     public bool detectedPlayer;
-    public bool withinReach;
+    private bool withinReach;
     bool lookingForWaypoint;
     [Header("")]
-    public GameObject waypointPrefab;
-    public GameObject[] waypoints;
+    private GameObject waypointPrefab;
+    private GameObject[] waypoints;
     public Vector3 targetDir;
     Vector3 midBodyPosition;
     GameObject closestWaypoint;
@@ -48,7 +48,6 @@ public class Enemy : MonoBehaviour
 
     void FixedUpdate()
     {
-
         if(animator.GetCurrentAnimatorStateInfo(0).IsName("Sword And Shield Attack")){
             //Attack();
         }
@@ -69,7 +68,8 @@ public class Enemy : MonoBehaviour
         //Checking if there is Waypoints
         if(waypoints != null)
         {   
-            if(animator.GetBool("attack") == true){
+            if(animator.GetBool("attack") == true || animator.GetBool("chase") == true){
+                
                 return;
             }
             hasWaypoints = true;
@@ -82,6 +82,7 @@ public class Enemy : MonoBehaviour
         if(seePlayer == true){
             detectedPlayer = true; //If enemy can see player, player is detected
             Debug.Log("1");
+            //Chase();
         } else if(withinReach == true){
             detectedPlayer = true; //If enemy is within melee range, player is detected
             Debug.Log("2");
