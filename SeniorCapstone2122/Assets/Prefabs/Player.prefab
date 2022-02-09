@@ -273,6 +273,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54db3637dacb7744597e52470522eac0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sprint: 0
+  walkSound: {fileID: 8300000, guid: 3ebd3f375858411459f15e08052ee738, type: 3}
+  runSound: {fileID: 8300000, guid: 672651d0682d15c4d804a62336853acf, type: 3}
+  fallSound: {fileID: 8300000, guid: 6b9cb067e3ea92045a52ed5a48386dca, type: 3}
 --- !u!114 &354906392776502241
 MonoBehaviour:
   m_ObjectHideFlags: 0
