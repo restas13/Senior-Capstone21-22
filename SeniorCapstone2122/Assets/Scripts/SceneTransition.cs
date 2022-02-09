@@ -11,6 +11,7 @@ public class SceneTransition : MonoBehaviour
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
+        HitTrigger();
     }
 
     public void HitTrigger()
@@ -28,5 +29,13 @@ public class SceneTransition : MonoBehaviour
     {
         loadScene = null;
         SceneManager.LoadScene(0);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            LoadNext();
+        }
     }
 }

@@ -7841,6 +7841,7 @@ GameObject:
   - component: {fileID: 1908836809}
   - component: {fileID: 1908836808}
   - component: {fileID: 1908836807}
+  - component: {fileID: 1908836811}
   m_Layer: 0
   m_Name: Exit Trigger
   m_TagString: Untagged
@@ -7856,7 +7857,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908836806}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -7868,7 +7869,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908836806}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -7919,12 +7920,24 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908836806}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -47.57, y: 1.71, z: 27.14}
-  m_LocalScale: {x: 13.257, y: 2.8053, z: 1}
+  m_LocalPosition: {x: -47.57, y: 5.21, z: 20.06}
+  m_LocalScale: {x: 13.257, y: 9.452458, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1908836811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908836806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25edff78455617141a23204ebee90525, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1929592792
 GameObject:
   m_ObjectHideFlags: 0
