@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCam;
     private Vector2 inputVector;
     public Vector3 movementVector;
-    private Vector3 playerVelocity;
+    public Vector3 playerVelocity;
     private Vector3 camRotation;
     private Vector2 mouseInput;
     public GameObject groundChecker;
@@ -41,8 +41,6 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         inputVector = controls.Gameplay.Movement.ReadValue<Vector2>(); //read value of Vector2 for movement input from Input Action
-        if (grounded) //only allow player to control movement on ground
-            movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
         mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1); //read current mouse position change
         if (grounded == true && !jump && controls.Gameplay.Jump.triggered) //save jump input for next fixed update
             jump = true;
@@ -73,7 +71,9 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         grounded = Physics.Raycast(groundChecker.transform.position, Vector3.down, 0.1f); //do a short raycast down from bottom of play to get if grounded
-        if (controls.Gameplay.Sprint.ReadValue<float>() != 0 && canSprint) //get if sprint button is pressed
+        if (grounded) //only allow player to control movement on ground
+            movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
+        if (controls.Gameplay.Sprint.ReadValue<float>() != 0 && canSprint && grounded) //get if sprint button is pressed
             movementVector *= sprintMult; //apply sprinting multiplier
         if (grounded) //get if grounded so we can apply gravity if airborne
         {

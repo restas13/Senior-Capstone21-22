@@ -43,6 +43,7 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
+        waypoints = GameObject.FindGameObjectsWithTag("EnemyWaypoint");
         //GameObject.Instantiate
     }
 
@@ -82,7 +83,7 @@ public class Enemy : MonoBehaviour
         if(seePlayer == true){
             detectedPlayer = true; //If enemy can see player, player is detected
             Debug.Log("1");
-            //Chase();
+            Chase();
         } else if(withinReach == true){
             detectedPlayer = true; //If enemy is within melee range, player is detected
             Debug.Log("2");
@@ -133,10 +134,17 @@ public class Enemy : MonoBehaviour
     public void Wander()
     {
 
-        if(transform.position == closestWaypoint.transform.position){
+        if (closestWaypoint != null)
+        {
+            if(transform.position == closestWaypoint.transform.position){
+                lookingForWaypoint = true;
+            }
+        } else 
+        {
             lookingForWaypoint = true;
         }
-        if(lookingForWaypoint == true){
+        if(lookingForWaypoint == true)
+        {
             foreach(GameObject waypoint in waypoints)
             {
                 if(closestWaypoint == null){
@@ -152,11 +160,9 @@ public class Enemy : MonoBehaviour
             //do nothing
         }
         
-        /*
-        if(closestWaypointToPlayer != null){
-            enemyNavMeshAgent.SetDestination(closestWaypointToPlayer);
+        if(closestWaypoint != null){
+            enemyNavMeshAgent.SetDestination(closestWaypoint.transform.position);
         }
-        */
     }
     public void LookforPlayer(){
         foreach(GameObject waypoint in waypoints){
