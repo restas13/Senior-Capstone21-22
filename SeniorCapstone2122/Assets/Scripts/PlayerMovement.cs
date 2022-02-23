@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 camRotation;
     private Vector2 mouseInput;
     public GameObject groundChecker;
+    public GameObject frontChecker;
     public bool jump;
     public float lookSensitivity;
     public float movementSpeed;
@@ -21,7 +22,9 @@ public class PlayerMovement : MonoBehaviour
     public bool canSprint = true;
     public float jumpHeight = 1.5f;
     public bool grounded;
+    public Collider[] front;
     public bool isDead;
+    public LayerMask mask;
 
     // Start is called before the first frame update
     void Start()
@@ -71,23 +74,24 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         grounded = Physics.Raycast(groundChecker.transform.position, Vector3.down, 0.1f); //do a short raycast down from bottom of play to get if grounded
-        if (grounded) //only allow player to control movement on ground
+        front = Physics.OverlapSphere(frontChecker.transform.position, 0.74f, mask);
+        if (grounded) { //only allow player to control movement on ground and so we can apply gravity if airborne
             movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
-        if (controls.Gameplay.Sprint.ReadValue<float>() != 0 && canSprint && grounded) //get if sprint button is pressed
-            movementVector *= sprintMult; //apply sprinting multiplier
-        if (grounded) //get if grounded so we can apply gravity if airborne
-        {
+            if (controls.Gameplay.Sprint.ReadValue<float>() != 0 && canSprint && grounded) //get if sprint button is pressed
+                movementVector *= sprintMult; //apply sprinting multiplier
             if(jump)
             {
-                playerVelocity.y += Mathf.Sqrt(jumpHeight * -3f * Physics.gravity.y); //add jump height to velocity
+                playerVelocity.y += Mathf.Sqrt(jumpHeight * -9f * Physics.gravity.y); //add jump height to velocity
                 jump = false;
             }
+            if (playerVelocity.y < 0) //dont give y velocity if grounded and not jumping
+                playerVelocity.y = 0f;
         } else
         {
-            playerVelocity.y += Physics.gravity.y * Time.fixedDeltaTime; //subtract gravity
+            playerVelocity.y += Physics.gravity.y * 3 * Time.fixedDeltaTime; //subtract gravity
+            if (front.Length != 0)
+                movementVector *= -.1f;
         }
-        if (playerVelocity.y < 0 && grounded) //dont give y velocity if grounded and not jumping
-            playerVelocity.y = 0f;
         if(!isDead)
             playerCC.Move(((movementVector * movementSpeed) + playerVelocity) * Time.fixedDeltaTime); //move
     }
