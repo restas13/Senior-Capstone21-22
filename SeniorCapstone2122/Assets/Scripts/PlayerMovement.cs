@@ -74,7 +74,7 @@ public class PlayerMovement : MonoBehaviour
     void FixedUpdate()
     {
         grounded = Physics.Raycast(groundChecker.transform.position, Vector3.down, 0.1f); //do a short raycast down from bottom of play to get if grounded
-        front = Physics.OverlapSphere(frontChecker.transform.position, 0.74f, mask);
+        front = Physics.OverlapSphere(frontChecker.transform.position, 0.74f, mask); //check for non player and ground objects in close proximity to player
         if (grounded) { //only allow player to control movement on ground and so we can apply gravity if airborne
             movementVector = (transform.forward * inputVector.y) + (transform.right * inputVector.x); //set vector for movement
             if (controls.Gameplay.Sprint.ReadValue<float>() != 0 && canSprint && grounded) //get if sprint button is pressed
@@ -82,14 +82,14 @@ public class PlayerMovement : MonoBehaviour
             if(jump)
             {
                 playerVelocity.y += Mathf.Sqrt(jumpHeight * -9f * Physics.gravity.y); //add jump height to velocity
-                jump = false;
+                jump = false; //remove stored jump input
             }
             if (playerVelocity.y < 0) //dont give y velocity if grounded and not jumping
                 playerVelocity.y = 0f;
         } else
         {
             playerVelocity.y += Physics.gravity.y * 3 * Time.fixedDeltaTime; //subtract gravity
-            if (front.Length != 0)
+            if (front.Length != 0) //reverse direction and reduce speed if we'd get stuck on something
                 movementVector *= -.1f;
         }
         if(!isDead)

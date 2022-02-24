@@ -8,11 +8,11 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player") //check if colliding object is player
         {
-            if (isAmmo) other.gameObject.SendMessage("Refill");
-            else other.gameObject.SendMessage("Heal");
-            gameObject.SetActive(false);
-        } else if (other.tag == "Enemy") gameObject.SetActive(false);
+            if (isAmmo) other.gameObject.SendMessage("Refill"); //refill players ammo if this is an ammo pickup
+            else other.gameObject.SendMessage("Heal"); //heal otherwise
+            gameObject.SetActive(false); //disable self
+        } else if (other.tag == "Enemy") gameObject.SetActive(false); //just disable self if enemy collides
     }
 }
