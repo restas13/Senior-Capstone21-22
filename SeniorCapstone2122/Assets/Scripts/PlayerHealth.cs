@@ -19,7 +19,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         health = maxHealth; //set current health to whatever max health when starting
-        checkpointLocation = transform.position;
+        checkpointLocation = transform.position; //set default checkpoint to spawn location
         movement = GetComponent<PlayerMovement>();
         baseSpeed = movement.movementSpeed;
         slowSpeed = movement.movementSpeed / 2;
