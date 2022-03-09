@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     private Camera mainCam;
     private Vector2 inputVector;
     public Vector3 movementVector;
-    public Vector3 playerVelocity;
+    private Vector3 playerVelocity;
     private Vector2 mouseInput;
     public GameObject groundChecker;
     public GameObject frontChecker;
