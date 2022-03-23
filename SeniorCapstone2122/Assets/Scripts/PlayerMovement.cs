@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
     public bool grounded;
     private Collider[] front;
     public bool isDead;
+    public bool paused;
     public LayerMask mask;
 
     // Start is called before the first frame update
@@ -43,26 +44,25 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        inputVector = controls.Gameplay.Movement.ReadValue<Vector2>(); //read value of Vector2 for movement input from Input Action
-        mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1); //read current mouse position change
-        if (grounded == true && !jump && controls.Gameplay.Jump.triggered) //save jump input for next fixed update
-            jump = true;
-        transform.rotation *= Quaternion.Euler(0, mouseInput.x * lookSensitivity, 0); //rotate player horizontally with mouse
-        if(controls.Gameplay.Pause.triggered)
+        if (!paused)
         {
-            Cursor.lockState = CursorLockMode.None; //unlock cursor if pause button is pressed
-        }
-        if(!isDead) 
-        {
-            xRot += mouseInput.y * lookSensitivity; //track total rotation so we can prevent view from being rotated upside down
-            if (xRot < 90 && xRot > -90) //only rotate if it will keep us right side up
+            inputVector = controls.Gameplay.Movement.ReadValue<Vector2>(); //read value of Vector2 for movement input from Input Action
+            mouseInput.Set(Mouse.current.delta.x.ReadValue(), Mouse.current.delta.y.ReadValue() * -1); //read current mouse position change
+            if (grounded == true && !jump && controls.Gameplay.Jump.triggered) //save jump input for next fixed update
+                jump = true;
+            transform.rotation *= Quaternion.Euler(0, mouseInput.x * lookSensitivity, 0); //rotate player horizontally with mouse
+            if(!isDead) 
             {
-                mainCam.transform.rotation = Quaternion.Euler(xRot, mainCam.transform.rotation.eulerAngles.y, mainCam.transform.rotation.eulerAngles.z); //rotate
+                xRot += mouseInput.y * lookSensitivity; //track total rotation so we can prevent view from being rotated upside down
+                if (xRot < 90 && xRot > -90) //only rotate if it will keep us right side up
+                {
+                    mainCam.transform.rotation = Quaternion.Euler(xRot, mainCam.transform.rotation.eulerAngles.y, mainCam.transform.rotation.eulerAngles.z); //rotate
+                }
+                else if(xRot >= 90) //fix if somehow rotated too far
+                    xRot = 89; //fix rotation
+                else if(xRot <= -90) //fix if somehow rotated too far
+                    xRot = -89; //fix rotation
             }
-            else if(xRot >= 90) //fix if somehow rotated too far
-                xRot = 89; //fix rotation
-            else if(xRot <= -90) //fix if somehow rotated too far
-                xRot = -89; //fix rotation
         }
     }
 
