@@ -83,13 +83,15 @@ public class Enemy : MonoBehaviour
         if(seePlayer == true){
             detectedPlayer = true; //If enemy can see player, player is detected
             Debug.Log("1");
-            Chase();
+            animator.SetBool("chase", true);
         } else if(withinReach == true){
             detectedPlayer = true; //If enemy is within melee range, player is detected
             Debug.Log("2");
+            animator.SetBool("chase", true);
         } else {
             Debug.Log("3");
             detectedPlayer = false; //Enemy has met no requirements to see player
+            animator.SetBool("chase", false);
         }
     }
 
