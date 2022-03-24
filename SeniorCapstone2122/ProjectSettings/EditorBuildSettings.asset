@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/TitleScreen.unity
     guid: 0e3bb20f7d4c6634bb28cd8b1f16c49c
   - enabled: 1
+    path: Assets/Scenes/Tutorial.unity
+    guid: 288be84c947376e46b483dc768ea4649
+  - enabled: 1
     path: Assets/Scenes/Maze 1.unity
     guid: 42c69438505a5a14ba13365af1ce1606
   - enabled: 1
