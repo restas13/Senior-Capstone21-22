@@ -61,7 +61,7 @@ public class PlayerAttack : MonoBehaviour
             lineRenderer.SetPosition(1, raycastHit.point);
             if(raycastHit.collider.tag == "Enemy")
             {
-             //do stuff here
+                raycastHit.collider.gameObject.SendMessage("TakeDamage");
             }
         } else 
         {

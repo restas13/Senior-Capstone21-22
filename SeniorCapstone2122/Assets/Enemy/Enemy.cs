@@ -32,6 +32,7 @@ public class Enemy : MonoBehaviour
     [Header("")]
     public float angleFOV;
     public float distanceToPlayer;
+    private bool stunned;
 
 
     void Awake(){
@@ -80,6 +81,8 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if(!stunned)
+        {
         if(seePlayer == true){
             detectedPlayer = true; //If enemy can see player, player is detected
             Debug.Log("1");
@@ -91,6 +94,9 @@ public class Enemy : MonoBehaviour
         } else {
             Debug.Log("3");
             detectedPlayer = false; //Enemy has met no requirements to see player
+            animator.SetBool("chase", false);
+        }
+        } else {
             animator.SetBool("chase", false);
         }
     }
@@ -181,6 +187,20 @@ public class Enemy : MonoBehaviour
 
     public void Attack(){
         enemyNavMeshAgent.SetDestination(transform.position);
+    }
+
+    public void TakeDamage()
+    {
+        StartCoroutine("Stunned");
+        enemyNavMeshAgent.ResetPath();
+    }
+    private IEnumerator Stunned()
+    {
+        animator.SetBool("stunned", true);
+        stunned = true;
+        yield return new WaitForSeconds(5f);
+        stunned = false;
+        animator.SetBool("stunned", false);
     }
 #endregion
 #region Gizmos
