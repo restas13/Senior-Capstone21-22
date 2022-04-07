@@ -63,10 +63,10 @@ Camera:
   field of view: 60
   orthographic: 0
   orthographic size: 5
-  m_Depth: -1
+  m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 4294967167
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 8519395011958241632}
   - component: {fileID: 1586774588}
   - component: {fileID: 1070290607093639629}
+  - component: {fileID: 338265449563026861}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -189,7 +190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 28a242706cefc21449893cc706cc5d8f, type: 2}
+  - {fileID: 2100000, guid: 689ef74d91eeac14db9ecc918be676b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -427,6 +428,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenuUI: {fileID: 0}
+--- !u!114 &338265449563026861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3525275649035368935}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e380a38d802ec3e43812ccf96ebb98ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mapObject: {fileID: 3611768379618828714, guid: 4d4cf2e58e594834dad4df4fe645bda7, type: 3}
 --- !u!1 &4465151679726341241
 GameObject:
   m_ObjectHideFlags: 0
