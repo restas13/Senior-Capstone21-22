@@ -36,6 +36,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Maze 8.unity
     guid: 9bf29a17414da3746bfc8c783362498e
   - enabled: 1
-    path: Assets/Scenes/EndScene.unity
-    guid: e5ea83de2b05c7a48943e044d9e1a49e
+    path: Assets/Scenes/Credits.unity
+    guid: 825fb44348328164aa6ed96305135e23
   m_configObjects: {}
