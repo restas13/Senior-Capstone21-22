@@ -5,23 +5,25 @@ using UnityEngine;
 public class MapSpawn : MonoBehaviour
 {
 	public GameObject mapObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        Instantiate(mapObject);
-    }
+	public List<GameObject> spawnedMap = new List<GameObject>();
+	public LayerMask mapMask;
+	public float spawnDistance = 0.5f;
+	public bool dead = false;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-	private void OnTriggerExit(Collider other)
+	void LateUpdate()
 	{
-		if (other.gameObject.tag == "Map")
+		if(Physics.OverlapSphere(transform.position, 1f, mapMask).Length == 0 && !dead)
 		{
-			Instantiate(mapObject);
+			spawnedMap.Add(Instantiate(mapObject, transform.position, Quaternion.identity) as GameObject);
+		}
+	}
+
+	public void Die()
+	{
+		dead = true;
+		for(int i = 0; i < spawnedMap.Count; i++)
+		{
+			Destroy(spawnedMap[i]);
 		}
 	}
 }

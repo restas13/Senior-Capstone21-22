@@ -14,21 +14,21 @@ public class Minimap : MonoBehaviour
 	public Rect rect;
 	public Image minimapImage;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+	// Start is called before the first frame update
+	void Start()
+	{
 		mapCamera.targetTexture = renderTexture;
 		//renderTexture = new RenderTexture(width, height, depth);
 		texture = new Texture2D(width, height, TextureFormat.RGBA32, false);
 		rect = new Rect(0, 0, width, height);
 		minimapImage = GameObject.Find("Minimap").GetComponent<Image>();
-    }
+	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	// Update is called once per frame
+	void Update()
+	{
+		
+	}
 
 	void LateUpdate()
 	{

@@ -441,6 +441,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapObject: {fileID: 3611768379618828714, guid: 4d4cf2e58e594834dad4df4fe645bda7, type: 3}
+  spawnedMap: []
+  mapMask:
+    serializedVersion: 2
+    m_Bits: 128
 --- !u!1 &4465151679726341241
 GameObject:
   m_ObjectHideFlags: 0
