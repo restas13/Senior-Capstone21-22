@@ -33,6 +33,7 @@ public class Enemy : MonoBehaviour
     public float angleFOV;
     public float distanceToPlayer;
     private bool stunned;
+	private float attackCD;
 
 
     void Awake(){
@@ -186,7 +187,12 @@ public class Enemy : MonoBehaviour
     }
 
     public void Attack(){
-        enemyNavMeshAgent.SetDestination(transform.position);
+		if (Time.time > attackCD)
+		{
+        	enemyNavMeshAgent.SetDestination(transform.position);
+			player.GetComponent<PlayerHealth>().TakeDamage(1);
+			attackCD = Time.time + 10f;
+		}
     }
 
     public void TakeDamage()

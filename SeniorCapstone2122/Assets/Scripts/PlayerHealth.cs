@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -17,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
 	public float timeToRegen = 20f;
 	private GameObject deathUI;
 	private GameObject mapUI;
+	private GameObject sliderObject;
+	private Slider healthSlider;
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -31,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
 		deathUI = GameObject.Find("DeathBackground");
 		deathUI.SetActive(false);
 		mapUI = GameObject.Find("Minimap");
+		sliderObject = GameObject.Find("HealthSlider");
+		healthSlider = sliderObject.GetComponent<Slider>();
 	}
 
 	void LateUpdate() 
@@ -38,6 +43,7 @@ public class PlayerHealth : MonoBehaviour
 		if (health < maxHealth && regenTime < Time.time)
 		{
 			health = maxHealth;
+			healthSlider.value = health;
 		}
 	}
 
@@ -52,6 +58,7 @@ public class PlayerHealth : MonoBehaviour
 		}
 		Cursor.lockState = CursorLockMode.None;
 		mapUI.SetActive(false);
+		sliderObject.SetActive(false);
 		deathUI.SetActive(true);
 		mapScript.Die();
 		movement.isDead = true;
@@ -62,8 +69,10 @@ public class PlayerHealth : MonoBehaviour
 	public void TakeDamage(int damage)
 	{
 		health -= damage;
+		healthSlider.value = health;
 		if (health <= 0)
 			Die();
+			//test
 		if(!movement.canSprint) {
 			StopCoroutine(DamageSpeed());
 			movement.movementSpeed = 6f;
@@ -95,6 +104,7 @@ public class PlayerHealth : MonoBehaviour
 	public void Heal()
 	{
 		health = maxHealth;
+		healthSlider.value = health;
 	}
 
 	public void Respawn()
@@ -102,6 +112,7 @@ public class PlayerHealth : MonoBehaviour
 		Cursor.lockState = CursorLockMode.Locked;
 		health = maxHealth;
 		deathUI.SetActive(false);
+		sliderObject.SetActive(true);
 		movement.isDead = false;
 		mapScript.dead = false;
 	}
