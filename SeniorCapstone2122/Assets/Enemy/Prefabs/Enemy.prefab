@@ -1,5 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!136 &2573386759944848398
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5270851532855537470}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2.509369
+  m_Direction: 1
+  m_Center: {x: 0, y: 1.2546844, z: 0}
 --- !u!195 &674449151
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10,7 +24,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -35,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5270851532848110720}
-  speed: 5
+  speed: 7
   enemyFieldOfView: 50
   detectionRadius: 3
   listeningRadius: 30
@@ -47,20 +61,6 @@ MonoBehaviour:
   targetDir: {x: 0, y: 0, z: 0}
   angleFOV: 0
   distanceToPlayer: 0
---- !u!136 &2573386759944848398
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5270851532855537470}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2.509369
-  m_Direction: 1
-  m_Center: {x: 0, y: 1.2546844, z: 0}
 --- !u!136 &674449152
 CapsuleCollider:
   m_ObjectHideFlags: 0
